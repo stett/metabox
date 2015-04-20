@@ -2,7 +2,8 @@
 #include "systems/Physics.hpp"
 #include "systems/GameWindow.hpp"
 #include "systems/Window.hpp"
-#include "systems/GameEntityBoxTraversal.hpp"
+#include "systems/BoxTraversal.hpp"
+#include "systems/BoxPhysics.hpp"
 #include "components/BoxNode.h"
 #include "components/ViewFollow.h"
 #include "components/BackgroundTexture.h"
@@ -19,7 +20,8 @@ int main(int argc, char** argv) {
     //f.add_system<Physics>();
     //f.add_system<RenderBoxes>();
     f.add_system<GameWindow>();
-    f.add_system<GameEntityBoxTraversal>();
+    f.add_system<BoxTraversal>();
+    //f.add_system<BoxPhysics>();
 
     // Add the root box entity
     auto root_box = box_entity(&f);

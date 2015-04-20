@@ -1,7 +1,9 @@
 #include "frame/Entity.h"
+#include "frame/Event.h"
 #include "components/GameEntity.h"
 #include "components/GameEntityContainer.h"
 using frame::Entity;
+using frame::Event;
 
 REGISTER_FRAME_COMPONENT(GameEntity);
 

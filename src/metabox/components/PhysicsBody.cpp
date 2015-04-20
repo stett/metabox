@@ -3,7 +3,7 @@
 #include "PhysicsWorld.hpp"
 
 PhysicsBody::PhysicsBody() : body(0) {
-    shape.SetAsBox(7, 7);
+    shape.SetAsBox(.5f, .5f);
     fixture_def.shape = &shape;
 }
 

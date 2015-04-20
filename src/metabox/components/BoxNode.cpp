@@ -3,6 +3,9 @@
 
 REGISTER_FRAME_COMPONENT(BoxNode);
 
+Event<BoxNode*, BoxNode*, BoxNode*> BoxNode::parent_changed;
+Event<BoxDoor*> BoxNode::door_opened;
+Event<BoxDoor*> BoxNode::door_closed;
 
 BoxNode::BoxNode() {
 
@@ -103,6 +106,10 @@ BoxNode* BoxNode::set_door(BoxFace face, int pos, bool open) {
     // Now let's set it's openness.
     door->open = open;
 
+    // Trigger the event based on whether or not this door was set as opened or closed
+    if (open) door_opened.trigger(door);
+    else      door_closed.trigger(door);
+
     // Chain
     return this;
 }
@@ -122,8 +129,12 @@ BoxNode* BoxNode::add_child(Entity* e, int x, int y) {
 
     // Make sure the child has a box-node component. Set it's parent and slot.
     auto node = e->get_or_add_component<BoxNode>();
+    auto old_parent = node->parent;
     node->parent = this;
     node->slot = &slots[x][y];
+
+    // Send the set-parent signal
+    parent_changed.trigger(node, this, old_parent);
     
     // Clean up child edge adjacencies & depths
     node->find_edge_adjacencies();

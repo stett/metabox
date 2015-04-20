@@ -1,13 +1,15 @@
 #pragma once
 #include <vector>
 #include <set>
-#include "frame/Entity.h"
 #include "frame/Component.h"
+#include "frame/Entity.h"
+#include "frame/Event.h"
 #include "frame/Archive.h"
 using std::vector;
 using std::set;
-using frame::Entity;
 using frame::Component;
+using frame::Entity;
+using frame::Event;
 
 
 class BoxNode;
@@ -41,6 +43,8 @@ struct BoxDoor {
 
 
 class BoxNode : public Component {
+
+    // Members
  protected:
     BoxNode* parent;
     set<Entity*> children;
@@ -48,6 +52,12 @@ class BoxNode : public Component {
     Slot slots[7][7];
     BoxDoor* doors[4];
     int depth;
+
+    // Events
+ public:
+    static Event<BoxNode*, BoxNode*, BoxNode*> parent_changed;
+    static Event<BoxDoor*> door_opened;
+    static Event<BoxDoor*> door_closed;
 
  public:
     BoxNode();
