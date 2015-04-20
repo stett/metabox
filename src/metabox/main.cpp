@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     frame::Frame f;
 
     // Add a window system
-    //f.add_system<Physics>();
+    f.add_system<Physics>();
     //f.add_system<RenderBoxes>();
     f.add_system<GameWindow>();
     f.add_system<BoxTraversal>();

@@ -16,7 +16,7 @@ class PhysicsWorld : public frame::Component {
 
  public:
     PhysicsWorld() : world_edges(0) {
-        world = shared_ptr<b2World>(new b2World(b2Vec2(0, 40)));
+        world = shared_ptr<b2World>(new b2World(b2Vec2(0, 9.8)));
     }
 
     ~PhysicsWorld() {

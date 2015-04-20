@@ -32,4 +32,5 @@ class PhysicsBody : public frame::Component {
  public:
     PhysicsBody* set_world(PhysicsWorld* physics_world);
     PhysicsBody* remove_body();
+    b2Body* get_body() { return body; }
 };

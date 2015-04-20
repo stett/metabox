@@ -116,15 +116,26 @@ class GameWindow : public System {
             // Draw each of the game entities
             for (auto game_entity : *box_entity_container) {
 
-                // If the entity has a sprite, render it with the box's transforms
+                // If the entity has a sprite and a physics body, render it with the box's transforms
                 auto game_entity_texture = game_entity->get_component<Texture>();
-                if (game_entity_texture) {
+                auto physics_body = game_entity->get_component<PhysicsBody>();
+                if (game_entity_texture && physics_body) {
+
+                    // Get the position
+                    auto body = physics_body->get_body();
+                    auto pos = body->GetPosition();
+                    auto ang = body->GetAngle();
+                    auto t_body = sf::Transform()
+                        .translate(sf::Vector2f(pos.x * PIXELS_PER_METER, pos.y * PIXELS_PER_METER))
+                        .rotate(ang * 180.f / 3.14159f);
+
+                    // Draw the sprite
                     const sf::Texture& texture = game_entity_texture->get();
                     auto size = texture.getSize();
                     sf::Sprite sprite;
                     sprite.setTexture(texture);
                     sprite.setOrigin(size.x * .5f, size.y * .5f);
-                    window->draw(sprite, sf::RenderStates(t));
+                    window->draw(sprite, sf::RenderStates(t * t_body));
                 }
             }
         }

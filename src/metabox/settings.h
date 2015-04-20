@@ -11,7 +11,7 @@ const int PIXELS_PER_METER = (float)BOX_RENDER_SIZE/(float)BOX_PHYSICAL_SIZE;
 
 // Physics
 const float FRICTION = .4f;
-const float GRAVITY = 40;//9.8
+const float GRAVITY = 40;
 
 // Box2D settings
 const int B2_CAT_MAIN = 1;
