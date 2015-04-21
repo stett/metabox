@@ -55,6 +55,7 @@ class BoxNode : public Component {
 
     // Events
  public:
+    static Event<BoxNode*> created;
     static Event<BoxNode*, BoxNode*, BoxNode*> parent_changed;
     static Event<BoxDoor*> door_opened;
     static Event<BoxDoor*> door_closed;
@@ -62,6 +63,9 @@ class BoxNode : public Component {
  public:
     BoxNode();
     ~BoxNode();
+
+ protected:
+    void init() { created.trigger(this); }
 
  public:
     BoxNode* set_parent(Entity* e, int x, int y);
@@ -75,6 +79,7 @@ class BoxNode : public Component {
     Slot* get_slot(int x, int y) { return &slots[x][y]; }
     int get_depth() { return depth; }
     const set<Entity*>& get_children() { return children; }
+    BoxDoor* get_door(BoxFace face) { return doors[face]; }
 
  protected:
     void find_edge_adjacencies();

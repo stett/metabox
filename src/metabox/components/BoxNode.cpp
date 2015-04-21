@@ -3,6 +3,7 @@
 
 REGISTER_FRAME_COMPONENT(BoxNode);
 
+Event<BoxNode*> BoxNode::created;
 Event<BoxNode*, BoxNode*, BoxNode*> BoxNode::parent_changed;
 Event<BoxDoor*> BoxNode::door_opened;
 Event<BoxDoor*> BoxNode::door_closed;

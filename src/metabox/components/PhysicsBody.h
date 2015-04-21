@@ -11,7 +11,11 @@ more easily recreated in another world.
 
 #pragma once
 #include <Box2D/Box2D.h>
+#include <list>
 #include "frame/Component.h"
+#include "frame/Event.h"
+using std::list;
+using frame::Event;
 
 class PhysicsWorld;
 
@@ -20,17 +24,23 @@ class PhysicsBody : public frame::Component {
  public:
     b2FixtureDef fixture_def;
     b2BodyDef body_def;
-    b2PolygonShape shape;
+    list<b2FixtureDef> secondary_fixture_defs;
+
+ public:
+    static Event<PhysicsBody*> created;
 
  private:
     b2Body* body;
 
  public:
-    //PhysicsBody() : body(0) {}
     PhysicsBody();
+
+ protected:
+    void add() { created.trigger(this); }
 
  public:
     PhysicsBody* set_world(PhysicsWorld* physics_world);
     PhysicsBody* remove_body();
+    PhysicsBody* update_fixtures();
     b2Body* get_body() { return body; }
 };

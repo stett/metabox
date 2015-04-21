@@ -32,10 +32,11 @@ Entity* box_entity(Frame* f, Entity* parent = 0, int slot_x = 0, int slot_y = 0)
     physics_body->body_def.fixedRotation = true;
 
     // Set the box hull shape
-    physics_body->shape.SetAsBox(.5f * size, .5f * size);
+    b2PolygonShape shape;
+    shape.SetAsBox(.5f * size, .5f * size);
 
     // Set the hull fixture
-    physics_body->fixture_def.shape = &physics_body->shape;
+    physics_body->fixture_def.shape = &shape;
     physics_body->fixture_def.friction = FRICTION;
     physics_body->fixture_def.filter.categoryBits = B2_CAT_BOX_HULL;
     physics_body->fixture_def.filter.maskBits = B2_CAT_MAIN | B2_CAT_BOX_HULL;
@@ -59,14 +60,14 @@ Entity* game_entity(Frame* f, Entity* container) {
     // Make a new body for the player in the new world
     float size = (float)BOX_PHYSICAL_SIZE / 7.f;
     physics_body->body_def.type = b2BodyType::b2_dynamicBody;
-    //physics_body->body_def.position = position;
     physics_body->body_def.fixedRotation = true;
 
     // Set the box hull shape
-    physics_body->shape.SetAsBox(.3f * size, .3f * size);
+    b2PolygonShape shape;
+    shape.SetAsBox(.3f * size, .3f * size);
 
     // Create a rectangular fixture for him
-    physics_body->fixture_def.shape = &physics_body->shape;
+    physics_body->fixture_def.shape = &shape;
     physics_body->fixture_def.friction = FRICTION;
     physics_body->fixture_def.filter.categoryBits = B2_CAT_MAIN;
     physics_body->fixture_def.filter.maskBits = B2_CAT_MAIN;
